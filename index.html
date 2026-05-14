@@ -6,14 +6,13 @@
 <title>English Correction Log</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --bg:        #F5F2EC;
   --surface:   #FDFCF8;
-  --surface2:  #F0EDE5;
   --border:    rgba(50,40,20,0.11);
   --border-md: rgba(50,40,20,0.20);
   --ink:       #1A1610;
@@ -50,7 +49,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── HEADER ── */
 header {
   position: sticky; top: 0; z-index: 200;
   background: rgba(253,252,248,0.92);
@@ -72,13 +70,11 @@ header {
 .logo em { font-style: italic; color: var(--accent); }
 .hdr-meta { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
 
-/* ── MAIN ── */
 main {
   max-width: 900px; margin: 0 auto;
   padding: 1.5rem 1.25rem 4rem;
 }
 
-/* ── TOOLBAR ── */
 .toolbar {
   display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
   margin-bottom: 1.25rem;
@@ -114,21 +110,20 @@ select {
   background-repeat: no-repeat; background-position: right 10px center;
 }
 
-/* ── IO BUTTONS ── */
-.io-row {
-  display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 1.25rem;
+.status-bar {
+  text-align: center; padding: 2rem 1rem;
+  color: var(--ink-3); font-size: 14px;
 }
-.btn-sm {
-  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
-  color: var(--ink-2); background: var(--surface);
-  border: 1px solid var(--border-md); border-radius: var(--r-sm);
-  padding: 5px 12px; cursor: pointer; white-space: nowrap;
-  transition: all .15s;
-  display: flex; align-items: center; gap: 4px;
+.spinner {
+  display: inline-block; width: 20px; height: 20px;
+  border: 2px solid var(--border-md);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  margin-bottom: 8px;
 }
-.btn-sm:hover { border-color: var(--accent); color: var(--accent); background: var(--good-bg); }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── ENTRY CARD ── */
 .entries { display: flex; flex-direction: column; gap: 12px; }
 
 .entry {
@@ -158,21 +153,16 @@ select {
 }
 .entry-date { font-size: 11px; color: var(--ink-3); }
 
-/* left-right comparison */
 .compare {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 0; padding: 10px 12px;
+  padding: 10px 12px;
 }
-@media (max-width: 540px) {
-  .compare { grid-template-columns: 1fr; }
-}
+@media (max-width: 540px) { .compare { grid-template-columns: 1fr; } }
 
 .col { padding: 10px 12px; border-radius: var(--r-sm); }
 .col-bad  { background: var(--bad-bg);  border-left: 3px solid var(--bad-bdr);  margin-right: 5px; }
 .col-good { background: var(--good-bg); border-left: 3px solid var(--good-bdr); }
-@media (max-width: 540px) {
-  .col-bad { margin-right: 0; margin-bottom: 6px; }
-}
+@media (max-width: 540px) { .col-bad { margin-right: 0; margin-bottom: 6px; } }
 
 .col-lbl {
   font-size: 10px; font-weight: 500; letter-spacing: .07em;
@@ -186,7 +176,6 @@ select {
   font-size: clamp(12px, 3vw, 13.5px); line-height: 1.65; color: var(--ink);
 }
 
-/* note */
 .entry-note {
   margin: 0 12px 10px;
   background: var(--note-bg); border-left: 3px solid var(--note-bdr);
@@ -194,32 +183,27 @@ select {
   font-size: 13.5px; line-height: 1.65; color: var(--note-txt);
   display: flex; gap: 7px;
 }
-.note-icon { flex-shrink: 0; }
 
-/* free memo */
 .entry-memo {
   margin: 0 12px 10px;
   background: var(--memo-bg); border-left: 3px solid var(--memo-bdr);
   border-radius: var(--r-sm); padding: 9px 13px;
   display: flex; gap: 7px; align-items: flex-start;
 }
-.entry-memo .memo-label {
+.memo-label {
   font-size: 10px; font-weight: 500; letter-spacing: .05em;
   text-transform: uppercase; color: var(--memo-txt);
-  margin-bottom: 4px; white-space: nowrap;
+  margin-bottom: 4px; display: flex; align-items: center; gap: 6px;
 }
 .memo-edit {
   width: 100%;
   font-family: 'DM Sans', sans-serif;
   font-size: 13.5px; line-height: 1.6; color: var(--ink);
   background: transparent; border: none; resize: none;
-  outline: none; min-height: 48px;
-  padding: 0;
+  outline: none; min-height: 40px; padding: 0;
 }
 .memo-edit::placeholder { color: var(--ink-3); font-style: italic; }
-.memo-edit:focus { background: rgba(255,255,255,.5); border-radius: 4px; }
 
-/* footer */
 .entry-foot {
   display: flex; align-items: center; justify-content: space-between;
   padding: 4px 16px 10px;
@@ -234,18 +218,16 @@ select {
   font-family: 'DM Sans', sans-serif; font-size: 12px;
   color: var(--ink-3); padding: 4px 10px;
   border-radius: var(--r-sm); cursor: pointer;
-  transition: all .15s; display: flex; align-items: center; gap: 4px;
+  transition: all .15s;
 }
 .btn-del:hover { background: var(--bad-bg); color: var(--bad-txt); border-color: rgba(216,90,48,.25); }
+.btn-del:disabled { opacity: .4; cursor: not-allowed; }
 
-/* ── EMPTY ── */
 .empty {
   text-align: center; padding: 3rem 1rem;
   color: var(--ink-3); font-size: 14px; line-height: 2;
 }
-.empty-big { font-size: 36px; display: block; margin-bottom: 8px; }
 
-/* ── ADD FORM ── */
 .add-wrap {
   margin-top: 2rem;
   background: var(--surface);
@@ -257,7 +239,6 @@ select {
   border-bottom: 1px solid var(--border);
   font-family: 'DM Serif Display', serif;
   font-size: 16px; color: var(--ink);
-  display: flex; align-items: center; gap: 6px;
 }
 .add-body { padding: 16px 18px 18px; }
 
@@ -269,8 +250,7 @@ select {
 
 .f-lbl {
   display: block; font-size: 11px; font-weight: 500;
-  letter-spacing: .05em; text-transform: uppercase;
-  margin-bottom: 5px;
+  letter-spacing: .05em; text-transform: uppercase; margin-bottom: 5px;
 }
 .f-lbl-bad  { color: var(--bad-txt); }
 .f-lbl-good { color: var(--good-txt); }
@@ -280,8 +260,7 @@ select {
 textarea {
   width: 100%; padding: 9px 11px;
   border-radius: var(--r-md); resize: vertical;
-  min-height: 76px; line-height: 1.6;
-  font-size: 13.5px;
+  min-height: 76px; line-height: 1.6; font-size: 13.5px;
 }
 .ta-mono { font-family: 'JetBrains Mono', monospace; }
 
@@ -289,9 +268,7 @@ textarea {
   display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
   margin-top: 10px;
 }
-.f-meta input[type=text] {
-  flex: 1; min-width: 130px; padding: 9px 11px;
-}
+.f-meta input[type=text] { flex: 1; min-width: 130px; padding: 9px 11px; }
 
 .btn-add {
   padding: 9px 20px;
@@ -303,8 +280,16 @@ textarea {
 }
 .btn-add:hover  { background: var(--accent-h); }
 .btn-add:active { transform: scale(.97); }
+.btn-add:disabled { opacity: .5; cursor: not-allowed; }
 
 .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+.saving-badge {
+  display: none; font-size: 10px; color: var(--accent);
+  background: var(--good-bg); border: 1px solid var(--good-bdr);
+  padding: 1px 7px; border-radius: 20px;
+}
+.saving-badge.show { display: inline; }
 </style>
 </head>
 <body>
@@ -317,8 +302,6 @@ textarea {
 </header>
 
 <main>
-
-  <!-- toolbar -->
   <div class="toolbar">
     <div class="search-box">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
@@ -333,18 +316,12 @@ textarea {
     </select>
   </div>
 
-  <div class="io-row">
-    <button class="btn-sm" onclick="doExport()">⬇ エクスポート</button>
-    <button class="btn-sm" onclick="document.getElementById('imp').click()">⬆ インポート</button>
-    <input type="file" id="imp" accept=".json" style="display:none" onchange="doImport(event)">
+  <div class="entries" id="entries">
+    <div class="status-bar"><div class="spinner"></div><br>データを読み込み中...</div>
   </div>
-
-  <!-- list -->
-  <div class="entries" id="entries"></div>
 
   <hr class="divider">
 
-  <!-- add form -->
   <div class="add-wrap">
     <div class="add-ttl">＋ 新しいエントリを追加</div>
     <div class="add-body">
@@ -360,66 +337,49 @@ textarea {
       </div>
       <div style="margin-bottom:10px;">
         <label class="f-lbl f-lbl-note">💡 解説・ポイント（任意）</label>
-        <textarea id="f-note" placeholder="なぜその表現が良いのか、どんな間違いだったか…" style="min-height:58px;"></textarea>
+        <textarea id="f-note" placeholder="なぜその表現が良いのか…" style="min-height:58px;"></textarea>
       </div>
       <div style="margin-bottom:10px;">
         <label class="f-lbl f-lbl-memo">📝 自由メモ（任意）</label>
-        <textarea id="f-memo" placeholder="関連する単語・フレーズ、使いたいシーンなど自由に…" style="min-height:58px;"></textarea>
+        <textarea id="f-memo" placeholder="関連する単語・使いたいシーンなど…" style="min-height:58px;"></textarea>
       </div>
       <div class="f-meta">
         <input type="text" id="f-topic" placeholder="トピック（例: immigration）">
         <input type="text" id="f-tag"   placeholder="カテゴリ（例: grammar）">
-        <button class="btn-add" onclick="addEntry()">追加する →</button>
+        <button class="btn-add" id="btn-add" onclick="addEntry()">追加する →</button>
       </div>
     </div>
   </div>
-
 </main>
 
 <script>
-const KEY = 'eclog_v3';
+const API = 'https://script.google.com/macros/s/AKfycbxnT-FAfU00QCYn_TXiYMfC4VIOUsEh1fb5vFijZ0iRkyM8tpncwIBzbCNLD0gL6uVW/exec';
 
-const DEMO = [
-  {
-    id:1, bad:"I was participated in debate practice last week.",
-    good:"I participated in debate practice last week.",
-    note:"'participate' は能動態で使う動詞。'was participated' は誤り。",
-    memo:"", topic:"Debate Field", tag:"grammar", date: Date.now()-86400000*4
-  },
-  {
-    id:2, bad:"This policy makes people's life more difficult and many people oppose it.",
-    good:"This policy makes people's lives more difficult, which is why many oppose it.",
-    note:"'life' → 'lives'（複数形）。後半は 'which is why' でつなぐと論理が明確になる。",
-    memo:"which is why / this is why の使い分けも確認する", topic:"Welfare", tag:"structure", date: Date.now()-86400000*2
-  },
-  {
-    id:3, bad:"We should accept the refugees because of they are in danger.",
-    good:"We should accept refugees because they are in danger.",
-    note:"'because of' の後は名詞句。節が続くなら 'because' だけでよい。定冠詞 'the' も不要。",
-    memo:"", topic:"Immigration", tag:"grammar", date: Date.now()-86400000*1
-  }
-];
+let db = [];
+let memoTimers = {};
 
-let db = [], nid = 1;
+async function apiFetch(params) {
+  const url = API + '?' + new URLSearchParams(params);
+  const res = await fetch(url);
+  return res.json();
+}
 
-function load() {
+async function apiPost(body) {
+  const res = await fetch(API, { method:'POST', body: JSON.stringify(body) });
+  return res.json();
+}
+
+async function loadAll() {
   try {
-    const s = localStorage.getItem(KEY);
-    if (s) { const d = JSON.parse(s); db = d.db||[]; nid = d.nid||db.length+1; }
-    else { db = DEMO; nid = DEMO.length+1; persist(); }
-  } catch { db = DEMO; nid = DEMO.length+1; }
+    const data = await apiFetch({ action: 'getAll' });
+    db = data.entries || [];
+    render();
+  } catch(e) {
+    document.getElementById('entries').innerHTML =
+      '<div class="status-bar">⚠️ 読み込みに失敗しました。ページを再読み込みしてください。</div>';
+  }
 }
 
-function persist() { localStorage.setItem(KEY, JSON.stringify({db, nid})); }
-
-function saveMemo(id, val) {
-  const e = db.find(x => x.id === id);
-  if (e) { e.memo = val; persist(); }
-}
-
-function fmt(ts) {
-  return new Date(ts).toLocaleDateString('ja-JP',{year:'numeric',month:'short',day:'numeric'});
-}
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -429,7 +389,6 @@ function render() {
   const tag = document.getElementById('tag-sel').value;
   const srt = document.getElementById('sort-sel').value;
 
-  // rebuild tag options
   const tags = [...new Set(db.map(e=>e.tag).filter(Boolean))].sort();
   const sel  = document.getElementById('tag-sel');
   const cur  = sel.value;
@@ -440,13 +399,15 @@ function render() {
     const txt = [e.bad,e.good,e.note,e.memo,e.topic,e.tag].join(' ').toLowerCase();
     return (!q||txt.includes(q)) && (!tag||e.tag===tag);
   });
-  list = srt==='oldest' ? [...list].sort((a,b)=>a.date-b.date) : [...list].sort((a,b)=>b.date-a.date);
+  list = srt==='oldest'
+    ? [...list].sort((a,b)=>String(a.id).localeCompare(String(b.id)))
+    : [...list].sort((a,b)=>String(b.id).localeCompare(String(a.id)));
 
-  document.getElementById('hdr-count').textContent = list.length+'件';
+  document.getElementById('hdr-count').textContent = list.length + '件';
 
   const cont = document.getElementById('entries');
   if (!list.length) {
-    cont.innerHTML = `<div class="empty"><span class="empty-big">🔍</span>エントリが見つかりません</div>`;
+    cont.innerHTML = '<div class="empty">📭 エントリがありません<br>下のフォームから追加してください</div>';
     return;
   }
 
@@ -454,84 +415,93 @@ function render() {
 <div class="entry" id="card-${e.id}">
   <div class="entry-head">
     <span class="entry-topic">${esc(e.topic||'—')}</span>
-    <span class="entry-date">${fmt(e.date)}</span>
+    <span class="entry-date">${esc(e.date||'')}</span>
   </div>
   <div class="compare">
     <div class="col col-bad">
-      <div class="col-lbl">✗ &thinsp;修正前</div>
+      <div class="col-lbl">✗ 修正前</div>
       <div class="col-en">${esc(e.bad)}</div>
     </div>
     <div class="col col-good">
-      <div class="col-lbl">✓ &thinsp;改善後</div>
+      <div class="col-lbl">✓ 改善後</div>
       <div class="col-en">${esc(e.good)}</div>
     </div>
   </div>
-  ${e.note?`
-  <div class="entry-note">
-    <span class="note-icon">💡</span>
-    <span>${esc(e.note)}</span>
-  </div>`:''}
+  ${e.note ? `<div class="entry-note"><span>💡</span><span>${esc(e.note)}</span></div>` : ''}
   <div class="entry-memo">
-    <span style="color:var(--memo-bdr);flex-shrink:0;">📝</span>
+    <span>📝</span>
     <div style="flex:1;">
-      <div class="memo-label">自由メモ</div>
+      <div class="memo-label">自由メモ <span class="saving-badge" id="badge-${e.id}">保存中...</span></div>
       <textarea class="memo-edit"
         placeholder="ここに自由にメモを書けます…"
-        oninput="saveMemo(${e.id},this.value)"
+        oninput="scheduleMemoSave('${e.id}', this.value)"
         rows="2"
       >${esc(e.memo)}</textarea>
     </div>
   </div>
   <div class="entry-foot">
-    ${e.tag?`<span class="tag-pill">${esc(e.tag)}</span>`:'<span></span>'}
-    <button class="btn-del" onclick="del(${e.id})">🗑 削除</button>
+    ${e.tag ? `<span class="tag-pill">${esc(e.tag)}</span>` : '<span></span>'}
+    <button class="btn-del" onclick="delEntry('${e.id}', this)">🗑 削除</button>
   </div>
 </div>`).join('');
 }
 
-function addEntry() {
+function scheduleMemoSave(id, val) {
+  const badge = document.getElementById('badge-'+id);
+  if (badge) badge.classList.add('show');
+  clearTimeout(memoTimers[id]);
+  memoTimers[id] = setTimeout(async () => {
+    const e = db.find(x=>String(x.id)===String(id));
+    if (e) e.memo = val;
+    await apiPost({ action:'memo', id, memo:val });
+    if (badge) badge.classList.remove('show');
+  }, 1200);
+}
+
+async function addEntry() {
   const bad  = document.getElementById('f-bad').value.trim();
   const good = document.getElementById('f-good').value.trim();
   if (!bad||!good) { alert('修正前と改善後は必須です'); return; }
-  const note  = document.getElementById('f-note').value.trim();
-  const memo  = document.getElementById('f-memo').value.trim();
-  const topic = document.getElementById('f-topic').value.trim();
-  const tag   = document.getElementById('f-tag').value.trim();
-  db.push({id:nid++, bad, good, note, memo, topic, tag, date:Date.now()});
-  persist();
-  ['f-bad','f-good','f-note','f-memo','f-topic','f-tag'].forEach(id=>document.getElementById(id).value='');
-  render();
-  window.scrollTo({top:0,behavior:'smooth'});
+
+  const btn = document.getElementById('btn-add');
+  btn.disabled = true; btn.textContent = '保存中...';
+
+  try {
+    const res = await apiPost({
+      action: 'add',
+      bad, good,
+      note:  document.getElementById('f-note').value.trim(),
+      memo:  document.getElementById('f-memo').value.trim(),
+      topic: document.getElementById('f-topic').value.trim(),
+      tag:   document.getElementById('f-tag').value.trim()
+    });
+    if (res.ok) {
+      ['f-bad','f-good','f-note','f-memo','f-topic','f-tag']
+        .forEach(id => document.getElementById(id).value='');
+      await loadAll();
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+  } catch(e) {
+    alert('保存に失敗しました。もう一度試してください。');
+  }
+
+  btn.disabled = false; btn.textContent = '追加する →';
 }
 
-function del(id) {
+async function delEntry(id, btnEl) {
   if (!confirm('このエントリを削除しますか？')) return;
-  db = db.filter(e=>e.id!==id);
-  persist(); render();
+  btnEl.disabled = true; btnEl.textContent = '削除中...';
+  try {
+    await apiPost({ action:'delete', id });
+    db = db.filter(e=>String(e.id)!==String(id));
+    render();
+  } catch(e) {
+    alert('削除に失敗しました。');
+    btnEl.disabled = false; btnEl.textContent = '🗑 削除';
+  }
 }
 
-function doExport() {
-  const blob = new Blob([JSON.stringify({db,nid},null,2)],{type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'correction_log.json'; a.click();
-}
-
-function doImport(ev) {
-  const f = ev.target.files[0]; if (!f) return;
-  const r = new FileReader();
-  r.onload = e => {
-    try {
-      const d = JSON.parse(e.target.result);
-      if (!Array.isArray(d.db)) throw 0;
-      db=d.db; nid=d.nid||db.length+1; persist(); render();
-      alert(db.length+'件インポートしました');
-    } catch { alert('ファイルの形式が正しくありません'); }
-  };
-  r.readAsText(f); ev.target.value='';
-}
-
-load(); render();
+loadAll();
 </script>
 </body>
 </html>
